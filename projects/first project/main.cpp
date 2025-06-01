@@ -14,42 +14,48 @@
 
 struct PizzaOrder {
     std::string name;
-    int size; 
+    int size;
 };
 
 int main() {
-
     std::vector<PizzaOrder> orders = {
-        {"Alice", 12}, {"Bob", 16}, {"Charlie", 10}
+        {"Alice", 12}, {"Bob", 16}, {"Charlie", 10}, {"Diana", 14}
     };
 
-    std::sort(orders.begin(), orders.end(), [](const PizzaOrder& a, const PizzaOrder& b) {
-        return a.size < b.size; 
-    });
-
-    std::cout << "Sorted by size ascending:\n";
+    std::cout << "Original Pizza Orders:\n";
     for (const auto& order : orders)
-        std::cout << order.name << ": " << order.size << " inches\n";
-
+        std::cout << order.name << " " << order.size << " inches\n";
+    std::cout << "\n";
 
     std::sort(orders.begin(), orders.end(), [](const PizzaOrder& a, const PizzaOrder& b) {
-        return a.name < b.name; 
+        return a.size < b.size;
     });
 
-    std::cout << "\nSorted by name alphabetical:\n";
+    std::cout << "Sorted by Size (Ascending):\n";
     for (const auto& order : orders)
-        std::cout << order.name << ": " << order.size << " inches\n";
+        std::cout << order.name << " " << order.size << " inches\n";
+    std::cout << "\n";
+
+    std::sort(orders.begin(), orders.end(), [](const PizzaOrder& a, const PizzaOrder& b) {
+        return a.name < b.name;
+    });
+
+    std::cout << "Sorted by Name (Alphabetical):\n";
+    for (const auto& order : orders)
+        std::cout << order.name << " " << order.size << " inches\n";
+    std::cout << "\n";
 
     struct PizzaOrderWithPrice {
         std::string name;
         int size;
-        double price; 
+        double price;
     };
 
     std::vector<PizzaOrderWithPrice> pricedOrders = {
         {"Alice", 12, 11.99},
-        {"Bob", 16, 15.50},
-        {"Charlie", 10, 9.75}
+        {"Bob", 16, 15.49},
+        {"Charlie", 10, 9.99},
+        {"Diana", 14, 13.75}
     };
 
     std::sort(pricedOrders.begin(), pricedOrders.end(), [](const PizzaOrderWithPrice& a, const PizzaOrderWithPrice& b) {
@@ -58,10 +64,10 @@ int main() {
 
     auto printOrdersWithPrice = [](const std::vector<PizzaOrderWithPrice>& orders) {
         for (const auto& order : orders)
-            std::cout << order.name << ": " << order.size << " inches, $" << order.price << "\n";
+            std::cout << order.name << " " << order.size << " inches $" << order.price << "\n";
     };
 
-    std::cout << "\nSorted by price lowest to highest:\n";
+    std::cout << "Sorted by Price (Ascending):\n";
     printOrdersWithPrice(pricedOrders);
 
     return 0;
